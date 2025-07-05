@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모임 사전</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+<div class="main-container">
+    <div class="left-panel" id="leftPanel">
+        <div class="header">
+            <h1>모임 사전</h1>
+        </div>
+
+        <div class="search-container">
+            <div class="search-box">
+                <input type="text" class="search-input" placeholder="단어를 검색하세요..." id="searchInput">
+                <button class="toggle-btn" onclick="toggleAddForm()">단어 등록하기</button>
+            </div>
+            
+            <div class="consonant-filter">
+                <button class="consonant-btn active" data-consonant="all">전체</button>
+                <button class="consonant-btn" data-consonant="ㄱ">ㄱ</button>
+                <button class="consonant-btn" data-consonant="ㄴ">ㄴ</button>
+                <button class="consonant-btn" data-consonant="ㄷ">ㄷ</button>
+                <button class="consonant-btn" data-consonant="ㄹ">ㄹ</button>
+                <button class="consonant-btn" data-consonant="ㅁ">ㅁ</button>
+                <button class="consonant-btn" data-consonant="ㅂ">ㅂ</button>
+                <button class="consonant-btn" data-consonant="ㅅ">ㅅ</button>
+                <button class="consonant-btn" data-consonant="ㅇ">ㅇ</button>
+                <button class="consonant-btn" data-consonant="ㅈ">ㅈ</button>
+                <button class="consonant-btn" data-consonant="ㅊ">ㅊ</button>
+                <button class="consonant-btn" data-consonant="ㅋ">ㅋ</button>
+                <button class="consonant-btn" data-consonant="ㅌ">ㅌ</button>
+                <button class="consonant-btn" data-consonant="ㅍ">ㅍ</button>
+                <button class="consonant-btn" data-consonant="ㅎ">ㅎ</button>
+            </div>
+        </div>
+
+        <div class="words-container">
+            <h2>사전 목록</h2>
+            <div id="wordsContainer">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>데이터를 불러오는 중...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="right-panel" id="rightPanel">
+        <button class="close-btn" onclick="toggleAddForm()">×</button>
+        <div class="add-word-container">
+            <h2>새 단어 추가</h2>
+            <form class="add-word-form" id="addWordForm">
+                <div class="form-group">
+                    <label for="wordInput">단어 *</label>
+                    <input type="text" id="wordInput" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoryInput">카테고리</label>
+                    <input type="text" id="categoryInput" placeholder="예: 농담, 관용구, 모임용어">
+                </div>
+                <div class="form-group full-width">
+                    <label for="meaningInput">의미/설명 *</label>
+                    <textarea id="meaningInput" rows="3" required></textarea>
+                </div>
+                <div class="form-group full-width">
+                    <label for="exampleInput">사용 예시</label>
+                    <textarea id="exampleInput" rows="2" placeholder="이 단어가 사용되는 예시를 적어보세요"></textarea>
+                </div>
+            </form>
+            <button class="add-btn" onclick="addWord()">단어 등록하기</button>
+        </div>
+    </div>
+</div>
+</body>
+<script src="script.js"></script>
+</html>
