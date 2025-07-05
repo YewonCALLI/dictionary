@@ -146,7 +146,6 @@ function filterWords() {
     displayWords(filteredWords);
 }
 
-// displayWords 함수에서 word-meaning 부분을 다음과 같이 수정:
 function displayWords(words) {
     const container = document.getElementById('wordsContainer');
     
@@ -178,10 +177,11 @@ function displayWords(words) {
     </div>
     `).join('');
 
-    // 스크래치 효과 초기화
-    words.forEach(word => {
-        initScratchEffect(word.id);
-    });
+    setTimeout(() => {
+        words.forEach(word => {
+            initScratchEffect(word.id);
+        });
+    }, 0);
 }
 
 function initScratchEffect(wordId) {
@@ -236,7 +236,7 @@ function initScratchEffect(wordId) {
        
        scratchedArea = transparent / (imageData.data.length / 4);
        
-       if (scratchedArea > 0.6) {
+       if (scratchedArea > 0.5) {
            overlay.style.display = 'none';
        }
    }

@@ -219,7 +219,7 @@ body {
     font-size: 0.9rem;
     color: #666;
     user-select: none;
-    z-index: 1;
+    z-index: 0;
 }
 
 .scratch-canvas {
