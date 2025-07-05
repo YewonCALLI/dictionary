@@ -217,29 +217,38 @@ function initScratchEffect(wordId) {
    }
 
    function scratch(e) {
-       if (!isDrawing) return;
-       
-       const rect = canvas.getBoundingClientRect();
-       const x = (e.clientX || e.touches[0].clientX) - rect.left;
-       const y = (e.clientY || e.touches[0].clientY) - rect.top;
-       
-       ctx.globalCompositeOperation = 'destination-out';
-       ctx.beginPath();
-       ctx.arc(x, y, 25, 0, 2 * Math.PI);
-       ctx.fill();
-       
-       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-       let transparent = 0;
-       for (let i = 3; i < imageData.data.length; i += 4) {
-           if (imageData.data[i] === 0) transparent++;
-       }
-       
-       scratchedArea = transparent / (imageData.data.length / 4);
-       
-       if (scratchedArea > 0.5) {
-           overlay.style.display = 'none';
-       }
-   }
+    if (!isDrawing) return;
+    
+    // 캔버스의 실제 크기와 표시 크기 비율 계산
+    const rect = canvas.getBoundingClientRect();
+    const scaleX = canvas.width / rect.width;
+    const scaleY = canvas.height / rect.height;
+    
+    const clientX = e.clientX || (e.touches && e.touches[0].clientX);
+    const clientY = e.clientY || (e.touches && e.touches[0].clientY);
+    
+    const x = (clientX - rect.left) * scaleX;
+    const y = (clientY - rect.top) * scaleY;
+    
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.beginPath();
+    ctx.arc(x, y, 25, 0, 2 * Math.PI);
+    ctx.fill();
+    
+    // 긁힌 정도 계산
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    let transparent = 0;
+    for (let i = 3; i < imageData.data.length; i += 4) {
+        if (imageData.data[i] === 0) transparent++;
+    }
+    
+    scratchedArea = transparent / (imageData.data.length / 4);
+    
+    // 50% 이상 긁히면 완전히 제거
+    if (scratchedArea > 0.5) {
+        overlay.style.display = 'none';
+    }
+}
 
    function stopScratch() {
        isDrawing = false;
